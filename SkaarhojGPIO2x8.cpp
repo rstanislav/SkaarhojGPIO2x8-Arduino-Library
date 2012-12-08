@@ -18,11 +18,13 @@
 
 
 SkaarhojGPIO2x8::SkaarhojGPIO2x8(){}	// Empty constructor.
-
 void SkaarhojGPIO2x8::begin() {
+	return SkaarhojGPIO2x8::begin(0);
+}
+void SkaarhojGPIO2x8::begin(uint8_t boardAddress) {
 	// NOTE: Wire.h should definitely be initialized at this point! (Wire.begin())
 	
-	_boardAddress = 0;	// 0-3
+	_boardAddress = boardAddress & B111;	// 0-3
 
 		// Initializing:
 	_inputStatus = 0;
@@ -33,6 +35,9 @@ void SkaarhojGPIO2x8::begin() {
 	MCP23017 GPIOchip;
 	_GPIOchip = GPIOchip;
 	_GPIOchip.begin((int)(B00 | _boardAddress));
+	
+	_GPIOchip.internalPullupMask(65535);	// All has pull-up
+	_GPIOchip.inputPolarityMask(0);
 	
 	// Setting up the outputs on the board:
 	_GPIOchip.pinMode(0,  OUTPUT);

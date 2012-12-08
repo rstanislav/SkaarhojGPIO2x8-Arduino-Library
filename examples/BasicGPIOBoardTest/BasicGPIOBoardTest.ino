@@ -23,7 +23,7 @@ void setup() {
 
   Wire.begin(); // Start the wire library for communication with the GPIO chip.
 
-  GPIOboard.begin();
+  GPIOboard.begin(0);
   
   // Set:
   for (int i=1; i<=8; i++)  {

@@ -42,6 +42,7 @@ class SkaarhojGPIO2x8
 
   public:
 	SkaarhojGPIO2x8();
+	void begin(uint8_t boardAddress);
 	void begin();
 	
 	bool inputUp(int inputNumber);
